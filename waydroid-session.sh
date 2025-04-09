@@ -9,12 +9,17 @@
 cd "$(dirname "$0")"
 
 start_waydroid() {
-    weston --xwayland &
+    weston --xwayland --scale=1 --width=2240 --height=1400 &
     WESTON_PID=$!
-    export WAYLAND_DISPLAY=wayland-1
+    export WAYLAND_DISPLAY=wayland-0
     sleep 2
     waydroid show-full-ui &
     WAYDROID_PID=$!
+
+   sleep 15
+
+   adb shell am start -n com.xiaomi.smarthome/.SmartHomeMainActivity
+   #  adb install /home/satevg/Dev/use-waydroid-on-x11/AuroraStore-4.7.0.apk
 }
 
 stop_waydroid() {
